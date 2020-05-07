@@ -1,4 +1,5 @@
 <h2><?= $title ?></h2>
+<br><hr/><br>
 
 <?php foreach($posts as $post) : ?>
 	<h3><?php echo $post['title']; ?></h3>
