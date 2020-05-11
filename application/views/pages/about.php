@@ -1,2 +1,2 @@
 <h2><?= $title ?></h2>
-<p>This is Revista</p>
+<p>This is ciBlog version 1.0</p>
