@@ -2,6 +2,11 @@
 	class Users extends CI_Controller{
 		// Register user
 		public function register(){
+			//Check admin login
+			if(!$this->session->userdata('logged_in')){
+				redirect('users/login');
+			}
+
 			$data['title'] = 'Sign Up';
 
 			$this->form_validation->set_rules('name', 'Name', 'required');
@@ -16,12 +21,12 @@
 				$this->load->view('templates/footer');
 			} else {
 				// Encrypt password
-				$enc_password = md5($this->input->post('password'));
+				$enc_password = hash('sha256', base64_encode(hash('sha512', $this->input->post('password'))));
 
 				$this->user_model->register($enc_password);
 
 				// Set message
-				$this->session->set_flashdata('user_registered', 'You are now registered and can log in');
+				$this->session->set_flashdata('user_registered', 'You are now registered and ready to log in!');
 
 				redirect('posts');
 			}
@@ -30,6 +35,9 @@
 		// Log in user
 		public function login(){
 			$data['title'] = 'Sign In';
+			//Default admin user:
+			//admin_revista
+			//Revista2k20CNMV
 
 			$this->form_validation->set_rules('username', 'Username', 'required');
 			$this->form_validation->set_rules('password', 'Password', 'required');
@@ -43,7 +51,7 @@
 				// Get username
 				$username = $this->input->post('username');
 				// Get and encrypt the password
-				$password = md5($this->input->post('password'));
+				$password = hash('sha256', base64_encode(hash('sha512', $this->input->post('password'))));
 
 				// Login user
 				$user_id = $this->user_model->login($username, $password);
@@ -64,7 +72,7 @@
 					redirect('posts');
 				} else {
 					// Set message
-					$this->session->set_flashdata('login_failed', 'nn'.$user_id);
+					$this->session->set_flashdata('login_failed', 'Invalid credentials provided');
 
 					redirect('users/login');
 				}		
@@ -73,15 +81,21 @@
 
 		// Log user out
 		public function logout(){
-			// Unset user data
-			$this->session->unset_userdata('logged_in');
-			$this->session->unset_userdata('user_id');
-			$this->session->unset_userdata('username');
+			if($this->session->userdata('logged_in')){
+				// Unset user data
+				$this->session->unset_userdata('logged_in');
+				$this->session->unset_userdata('user_id');
+				$this->session->unset_userdata('username');
 
-			// Set message
-			$this->session->set_flashdata('user_loggedout', 'You are now logged out');
+				// Set message
+				$this->session->set_flashdata('user_loggedout', 'You are now logged out');
 
-			redirect('users/login');
+				redirect('users/login');
+			} else {
+				$this->session->set_flashdata('user_loggedout', 'You aren\'t logged in');
+
+				redirect('posts');
+			}
 		}
 
 		// Check if username exists

@@ -23,7 +23,7 @@
 		public function view($slug = NULL){
 			$data['post'] = $this->post_model->get_posts($slug);
 			$post_id = $data['post']['id'];
-			$data['comments'] = $this->comment_model->get_comments($post_id);
+			// $data['comments'] = $this->comment_model->get_comments($post_id);
 
 			if(empty($data['post'])){
 				show_404();
@@ -56,10 +56,10 @@
 			} else {
 				// Upload Image
 				$config['upload_path'] = './assets/images/posts';
-				$config['allowed_types'] = 'gif|jpg|png';
-				$config['max_size'] = '2048';
-				$config['max_width'] = '2000';
-				$config['max_height'] = '2000';
+				$config['allowed_types'] = 'gif|jpg|jpeg||png';
+				// $config['max_size'] = '2048';
+				// $config['max_width'] = '2000';
+				// $config['max_height'] = '2000';
 
 				$this->load->library('upload', $config);
 

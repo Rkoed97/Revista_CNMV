@@ -28,7 +28,7 @@
 			if($result->num_rows() >= 1){
 				return $result->row(0)->id;
 			} else {
-				return true;
+				return false;
 			}
 		}
 
