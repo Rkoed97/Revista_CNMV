@@ -26,7 +26,7 @@
 				$this->user_model->register($enc_password);
 
 				// Set message
-				$this->session->set_flashdata('user_registered', 'You are now registered and ready to log in!');
+				$this->session->set_tempdata('user_registered', 'You are now registered and ready to log in!', 5);
 
 				redirect('posts');
 			}
@@ -54,12 +54,12 @@
 				$password = hash('sha256', base64_encode(hash('sha512', $this->input->post('password'))));
 
 				// Login user
-				$user_id = $this->user_model->login($username, $password);
+				$user_salt = $this->user_model->login($username, $password);
 
-				if($user_id){
+				if($user_salt){
 					// Create session
 					$user_data = array(
-						'user_id' => $user_id,
+						'user_salt' => $user_salt,
 						'username' => $username,
 						'logged_in' => true
 					);
@@ -67,12 +67,12 @@
 					$this->session->set_userdata($user_data);
 
 					// Set message
-					$this->session->set_flashdata('user_loggedin', 'You are now logged in');
+					$this->session->set_tempdata('user_loggedin', 'You are now logged in', 5);
 
 					redirect('posts');
 				} else {
 					// Set message
-					$this->session->set_flashdata('login_failed', 'Invalid credentials provided');
+					$this->session->set_tempdata('login_failed', 'Invalid credentials provided', 5);
 
 					redirect('users/login');
 				}		
@@ -84,15 +84,15 @@
 			if($this->session->userdata('logged_in')){
 				// Unset user data
 				$this->session->unset_userdata('logged_in');
-				$this->session->unset_userdata('user_id');
+				$this->session->unset_userdata('user_salt');
 				$this->session->unset_userdata('username');
 
 				// Set message
-				$this->session->set_flashdata('user_loggedout', 'You are now logged out');
+				$this->session->set_tempdata('user_loggedout', 'You are now logged out', 5);
 
 				redirect('users/login');
 			} else {
-				$this->session->set_flashdata('user_loggedout', 'You aren\'t logged in');
+				$this->session->set_tempdata('user_loggedout', 'You aren\'t logged in', 5);
 
 				redirect('posts');
 			}

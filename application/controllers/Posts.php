@@ -1,5 +1,8 @@
 <?php
 	class Posts extends CI_Controller{
+
+		//Index function
+
 		public function index($offset = 0){	
 			// Pagination Config	
 			$config['base_url'] = base_url() . 'posts/index/';
@@ -20,6 +23,8 @@
 			$this->load->view('templates/footer');
 		}
 
+		//View function
+
 		public function view($slug = NULL){
 			$data['post'] = $this->post_model->get_posts($slug);
 			$post_id = $data['post']['id'];
@@ -35,6 +40,8 @@
 			$this->load->view('posts/view', $data);
 			$this->load->view('templates/footer');
 		}
+
+		//Create function
 
 		public function create(){
 			// Check login
@@ -74,11 +81,13 @@
 				$this->post_model->create_post($post_image);
 
 				// Set message
-				$this->session->set_flashdata('post_created', 'Your post has been created');
+				$this->session->set_tempdata('post_created', 'Your post has been created', 5);
 
 				redirect('posts');
 			}
 		}
+
+		//Delete function
 
 		public function delete($id){
 			// Check login
@@ -89,10 +98,12 @@
 			$this->post_model->delete_post($id);
 
 			// Set message
-			$this->session->set_flashdata('post_deleted', 'Your post has been deleted');
+			$this->session->set_tempdata('post_deleted', 'Your post has been deleted', 5);
 
 			redirect('posts');
 		}
+
+		//Edit function
 
 		public function edit($slug){
 			// Check login
@@ -103,7 +114,7 @@
 			$data['post'] = $this->post_model->get_posts($slug);
 
 			// Check user
-			if($this->session->userdata('user_id') != $this->post_model->get_posts($slug)['user_id']){
+			if($this->session->userdata('user_salt') != $this->post_model->get_posts($slug)['user_salt']){
 				redirect('posts');
 
 			}
@@ -121,6 +132,8 @@
 			$this->load->view('templates/footer');
 		}
 
+		//Update function
+
 		public function update(){
 			// Check login
 			if(!$this->session->userdata('logged_in')){
@@ -130,7 +143,7 @@
 			$this->post_model->update_post();
 
 			// Set message
-			$this->session->set_flashdata('post_updated', 'Your post has been updated');
+			$this->session->set_tempdata('post_updated', 'Your post has been updated', 5);
 
 			redirect('posts');
 		}

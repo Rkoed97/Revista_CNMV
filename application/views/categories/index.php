@@ -1,10 +1,14 @@
-<h2><?= $title; ?></h2>
+<div class="container">
+	<p class="display-3 text-center"><?= $title; ?></p>
+</div>
 <ul class="list-group">
 <?php foreach($categories as $category) : ?>
-	<li class="list-group-item"><a href="<?php echo site_url('/categories/posts/'.$category['id']); ?>"><?php echo $category['name']; ?></a>
-		<?php if($this->session->userdata('user_id') == $category['user_id']): ?>
-			<form class="cat-delete" action="categories/delete/<?php echo $category['id']; ?>" method="POST">
-				<input type="submit" class="btn-link text-danger" value="[X]">
+	<li class="list-group-item text-center"><a href="<?= site_url('/categories/posts/'.$category['id']); ?>" class="lead"><strong><?= $category['name']; ?></strong></a>
+		<?php if($this->session->userdata('user_salt') == $category['user_salt']): ?>
+			<form class="cat-delete" action="categories/delete/<?= $category['id']; ?>" method="POST">
+				<button type="submit" class="btn-link text-danger close">
+					<span aria-hidden="true">&times;</span>
+				</button>
 			</form>
 		<?php endif; ?>
 	</li>

@@ -27,7 +27,7 @@
 				'slug' => $slug,
 				'body' => $this->input->post('body'),
 				'category_id' => $this->input->post('category_id'),
-				'user_id' => $this->session->userdata('user_id'),
+				'user_salt' => $this->session->userdata('user_salt'),
 				'post_image' => $post_image
 			);
 
@@ -71,7 +71,14 @@
 		public function get_posts_by_category($category_id){
 			$this->db->order_by('posts.id', 'DESC');
 			$this->db->join('categories', 'categories.id = posts.category_id');
-				$query = $this->db->get_where('posts', array('category_id' => $category_id));
+			$query = $this->db->get_where('posts', array('category_id' => $category_id));
 			return $query->result_array();
+		}
+
+		public function get_latest_post(){
+			$this->db->order_by('posts.id', 'DESC');
+			$this->db->join('categories', 'categories.id = posts.category_id');
+			$query = $this->db->get('posts')->row();
+			return $query;
 		}
 	}

@@ -1,3 +1,10 @@
+			</div>
+		</main>
+		<div class="container-fluid static-bottom">
+			<div class="row">
+					<div class="col-sm text-left text-muted"><a href="https://www.cnmv.ro" target="blank">Colegiul National "Mihai Viteazul"</a></div>
+					<div class="col-sm text-right text-muted"><a href="https://www.linkedin.com/in/CatalinCereanu" target="blank">@2020 - Cereanu Catalin</a></div>
+			</div>
 		</div>
 		<script>
     		ClassicEditor

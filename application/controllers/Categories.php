@@ -1,7 +1,7 @@
 <?php
 	class Categories extends CI_Controller{
 		public function index(){
-			$data['title'] = 'Categories';
+			$data['title'] = 'Categorii';
 
 			$data['categories'] = $this->category_model->get_categories();
 
@@ -28,7 +28,7 @@
 				$this->category_model->create_category();
 
 				// Set message
-				$this->session->set_flashdata('category_created', 'Your category has been created');
+				$this->session->set_tempdata('category_created', 'Your category has been created', 5);
 
 				redirect('categories');
 			}
@@ -53,7 +53,7 @@
 			$this->category_model->delete_category($id);
 
 			// Set message
-			$this->session->set_flashdata('category_deleted', 'Your category has been deleted');
+			$this->session->set_tempdata('category_deleted', 'Your category has been deleted', 5);
 
 			redirect('categories');
 		}

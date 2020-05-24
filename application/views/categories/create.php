@@ -1,4 +1,6 @@
-<h2><?= $title ;?></h2>
+<div class="container">
+	<p class="display-3 text-center"><?= $title; ?></p>
+</div>
 
 <?php echo validation_errors(); ?>
 
