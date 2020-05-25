@@ -10,7 +10,7 @@
       <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/css/style.css">
       <script src="https://cdn.ckeditor.com/ckeditor5/19.0.0/classic/ckeditor.js"></script>
   </head>
-  <body>
+  <body class="clearfix">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
       <a class="navbar-brand" href="<?php echo base_url(); ?>">Revista CNMV</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
