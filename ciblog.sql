@@ -88,8 +88,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `zipcode`, `email`, `username`, `password`, `register_date`) VALUES
-(1, 'Brad Traversy', '01913', 'brad@gmail.com', 'brad', 'e10adc3949ba59abbe56e057f20f883e', '2017-04-10 13:14:31'),
-(2, 'John Doe', '90210', 'jdoe@gmail.com', 'john', 'e10adc3949ba59abbe56e057f20f883e', '2017-04-10 14:12:14');
+(1, 'Brad Traversy', '01913', 'brad@gmail.com', 'brad', '89cf422bf384ff5b26bf2f0139a20107c1c1a83967ac391e1f01f51c22202256', '2017-04-10 13:14:31');
 
 --
 -- Indexes for dumped tables
